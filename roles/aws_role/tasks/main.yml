@@ -1,0 +1,4 @@
+---
+- include: aws_role.yml
+- include: aws_prepare_zip.yml
+- include: aws_lambda.yml

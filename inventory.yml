@@ -1,0 +1,24 @@
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_python_interpreter: /usr/bin/env python
+      aws_secret_key: "xxx"
+      aws_access_key: "xxx"
+
+      lambda_roles:
+        - name: "BlindChess"
+          description: "Blind Chess lambda function"
+          timeout: 10
+          memory: 1536
+          handler: "index.handler"
+          runtime: "python3.9"
+          git_url: "https://github.com/cristinacolpos/blindfold-chess.git"
+          managed_policies:
+            - arn:aws:iam::aws:policy/PowerUserAccess
+            - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+
+      regions:
+        - name: "default"
+          region_id: "eu-west-2"
+

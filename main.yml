@@ -1,0 +1,12 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Create lambda roles
+      include_role:
+        name: aws_role
+      with_nested:
+        - "{{ lambda_roles }}"
+        - "{{ regions }}"

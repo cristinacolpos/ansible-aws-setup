@@ -1,0 +1,14 @@
+- name: Create a role with description and tags
+  community.aws.iam_role:
+    name: "{{item[0].name }}"
+    assume_role_policy_document: "{{ lookup('file','templates/policy.json') }}"
+    description: "{{item[0].description }}"
+    purge_policies: true
+    managed_policies: "{{item[0].managed_policies }}"
+  register: role_result
+
+- name: create env file with arn of created role
+  copy:
+    content: "{{role_result.arn}}"
+    dest: .env
+    force: no

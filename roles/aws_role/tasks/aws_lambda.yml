@@ -1,0 +1,11 @@
+- name: Create lambda
+  community.aws.lambda:
+    name: '{{ item[0].name }}'
+    state: present
+    runtime: '{{ item[0].runtime }}'
+    role: '{{ role_result.arn }}'
+    handler: 'hello_python.my_handler'
+    zip_file: "{{playbook_dir}}/repositories/{{item[0].name}}_function.zip"
+    description: "{{item[0].description}}"
+    memory_size: "{{item[0].memory}}"
+    timeout: "{{item[0].timeout}}"

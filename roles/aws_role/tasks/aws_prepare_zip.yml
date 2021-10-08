@@ -1,0 +1,16 @@
+- name: Change file ownership, group and permissions
+  ansible.builtin.file:
+    path: '{{playbook_dir}}/repositories/'
+    mode: '755'
+    state: directory
+
+- name: 'Git checkout {{ item[0].git_url}}'
+  ansible.builtin.git:
+    repo: '{{ item[0].git_url}}'
+    dest: '{{playbook_dir}}/repositories/{{ item[0].name}}'
+
+- name: 'Create a zip archive of {{playbook_dir}}/repositories/{{ item[0].name}}'
+  community.general.archive:
+    path: "{{playbook_dir}}/repositories/{{item[0].name}}"
+    dest: "{{playbook_dir}}/repositories/{{item[0].name}}_function.zip"
+    format: zip
